@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@localazy/tsconfig/tsconfig.library.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "types": ["@types/node"]
+}

@@ -2,6 +2,9 @@
 .idea
 .vscode
 
+# Husky hooks
+.husky/_/
+
 ## TEMPLATE START – avoid adding records between TEMPLATE START and TEMPLATE END
 ## https://github.com/github/gitignore/blob/main/Node.gitignore
 
