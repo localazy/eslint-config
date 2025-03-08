@@ -10,11 +10,8 @@ export function typescript({ projectService }: ITypescriptOptions = {}): Linter.
     const { defaultProject, allowDefaultProject } = projectService;
     projectServiceConf = {
       defaultProject: defaultProject ?? 'tsconfig.json',
+      allowDefaultProject: allowDefaultProject ?? [],
     };
-
-    if (allowDefaultProject) {
-      projectServiceConf.allowDefaultProject = allowDefaultProject;
-    }
   }
 
   return [

@@ -6,8 +6,13 @@ import { typescript } from '@/configs/typescript';
 import { ILocalazyOptions } from '@/model/i-localazy-options';
 import { Linter } from 'eslint';
 
-function localazy({ userConfigs, projectService }: ILocalazyOptions = {}): Linter.Config[] {
-  const eslintConfig = [...gitignore(), ...common(), ...javascript(), ...typescript({ projectService })];
+function localazy({ userConfigs, projectService, ignoreDefinitions }: ILocalazyOptions = {}): Linter.Config[] {
+  const eslintConfig = [
+    ...gitignore({ ignoreDefinitions }),
+    ...common(),
+    ...javascript(),
+    ...typescript({ projectService }),
+  ];
 
   if (userConfigs) {
     eslintConfig.push(...userConfigs);
