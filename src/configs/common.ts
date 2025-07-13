@@ -1,6 +1,6 @@
-import { type Linter } from 'eslint';
+import type { LocalazyConfig } from '@/localazy-config';
 
-export function common(): Linter.Config[] {
+export function common(): LocalazyConfig {
   return [
     {
       rules: {

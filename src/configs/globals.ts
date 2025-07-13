@@ -1,7 +1,8 @@
-import { type Linter } from 'eslint';
-import { default as definition } from 'globals';
+import { files } from '@/configs/shared/files';
+import type { LocalazyConfig } from '@/localazy-config';
+import globalsDefinition from 'globals';
 
-export function globals(): Linter.Config[] {
+export function globals(): LocalazyConfig {
   return [
     {
       // 1. Assume js/ts files are type module.
@@ -10,22 +11,22 @@ export function globals(): Linter.Config[] {
       //    for pure Node.js services.
       //
       // Both cases should be eventually configurable.
-      files: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.ts', '**/*.tsx', '**/*.mts'],
+      files: files.esm,
       languageOptions: {
         globals: {
-          ...definition.nodeBuiltin,
-          ...definition.es2022,
-          ...definition.browser,
+          ...globalsDefinition.nodeBuiltin,
+          ...globalsDefinition.es2022,
+          ...globalsDefinition.browser,
         },
       },
       name: '@localazy/eslint-config/globals/es-modules',
     },
     {
-      files: ['**/*.cjs', '**/*.cts'],
+      files: files.cjs,
       languageOptions: {
         globals: {
-          ...definition.node,
-          ...definition.es2022,
+          ...globalsDefinition.node,
+          ...globalsDefinition.es2022,
         },
       },
       name: '@localazy/eslint-config/globals/common-js',

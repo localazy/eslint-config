@@ -21,58 +21,59 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/eslint-config.d.ts",
-        "default": "./dist/eslint-config.js"
-      },
-      "require": {
-        "types": "./dist/eslint-config.d.ts",
-        "default": "./dist/eslint-config.cjs"
-      }
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/eslint-config.cjs",
-  "module": "./dist/eslint-config.js",
-  "types": "./dist/eslint-config.d.ts",
+  "main": "./dist/main.cjs",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "vite build",
-    "check": "pnpm run prettier && pnpm run lint && pnpm run typecheck && pnpm run build",
-    "check:fix": "pnpm run prettier:fix && pnpm run lint:fix",
+    "check": "pnpm run lint && pnpm run prettier && pnpm run typecheck && pnpm run build",
+    "check:fix": "pnpm run lint:fix && pnpm run prettier:fix",
     "dev": "vite build --watch",
-    "lint": "eslint --cache .",
+    "lint": "eslint --cache --cache-location .cache/eslint .",
     "lint:fix": "eslint --fix .",
-    "lint:rules": "pnpx eslint-flat-config-viewer",
+    "lint:inspect": "eslint --inspect-config",
     "prepare": "husky && pnpm run build",
     "prepublishOnly": "pnpm run build",
-    "prettier": "prettier --check --cache .",
+    "prettier": "prettier --check --cache --cache-location .cache/prettier .",
     "prettier:fix": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "prettier": "@localazy/prettier-config",
   "dependencies": {
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^9.31.0",
+    "@typescript-eslint/utils": "^8.36.0",
     "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "globals": "^16.0.0",
-    "typescript-eslint": "^8.26.1"
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-esm-import": "^1.0.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-import-x": "^4.16.1",
+    "eslint-plugin-no-relative-import-paths": "^1.6.1",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.3.0",
+    "typescript-eslint": "^8.36.0"
   },
   "devDependencies": {
-    "@localazy/prettier-config": "1.0.0-beta.1",
-    "@localazy/tsconfig": "1.0.0-beta.3",
-    "@types/node": "^22.13.10",
-    "eslint": "^9.22.0",
+    "@localazy/eslint-config": "file:",
+    "@localazy/prettier-config": "^1.0.0-beta.4",
+    "@localazy/tsconfig": "^1.0.0-beta.5",
+    "@types/node": "^22.16.3",
+    "eslint": "^9.31.0",
     "husky": "^9.1.7",
-    "jiti": "^2.4.2",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.2",
-    "vite": "6.2.2",
-    "vite-plugin-dts": "4.5.3",
-    "vite-plugin-externalize-deps": "0.9.0"
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.4",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-externalize-deps": "^0.9.0"
   },
   "peerDependencies": {
     "eslint": ">=9.0.0"
@@ -80,7 +81,8 @@
   "packageManager": "pnpm@10.3.0",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "unrs-resolver"
     ]
   }
 }

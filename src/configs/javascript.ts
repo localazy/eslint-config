@@ -1,11 +1,12 @@
-import { default as js } from '@eslint/js';
-import { type Linter } from 'eslint';
+import { files } from '@/configs/shared/files';
+import type { LocalazyConfig } from '@/localazy-config';
+import js from '@eslint/js';
 
-export function javascript(): Linter.Config[] {
+export function javascript(): LocalazyConfig {
   return [
     {
       ...js.configs.recommended,
-      files: ['**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs', '**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
+      files: files.sources,
       name: '@localazy/eslint-config/javascript/@eslint/js/recommended',
     },
   ];

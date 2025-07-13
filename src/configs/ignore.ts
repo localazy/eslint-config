@@ -1,9 +1,13 @@
-import { IGitignoreOptions } from '@/model/configs/i-gitignore-options';
-import { type Linter } from 'eslint';
+import type { LocalazyConfig } from '@/localazy-config';
+import type { ILocalazyOptions } from '@/model/i-localazy-options';
 import gitignorePlugin from 'eslint-config-flat-gitignore';
 
-export function gitignore({ ignoreDefinitions = [] }: IGitignoreOptions = {}): Linter.Config[] {
-  const files = new Set(['.gitignore', '.eslintignore', ...ignoreDefinitions]);
+export function gitignore({
+  gitignore,
+}: {
+  gitignore: NonNullable<NonNullable<ILocalazyOptions['settings']>['gitignore']>;
+}): LocalazyConfig {
+  const files = new Set(gitignore.paths);
 
   return [
     {

@@ -16,7 +16,7 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: 'src/main.ts',
-      fileName: 'eslint-config',
+      fileName: 'main',
       formats: ['es', 'cjs'],
     },
   },
@@ -25,6 +25,6 @@ export default defineConfig({
     // Externalize everything
     externalizeDeps(),
     // Rollup types into a single file
-    dts({ rollupTypes: true }),
+    dts({ rollupTypes: true, tsconfigPath: 'tsconfig.vite-dts.json' }),
   ],
 });

@@ -1,7 +1,7 @@
-import { type Linter } from 'eslint';
+import type { LocalazyConfig } from '@/localazy-config';
 import prettierPlugin from 'eslint-config-prettier';
 
-export function prettier(): Linter.Config[] {
+export function prettier(): LocalazyConfig {
   return [
     {
       ...prettierPlugin,
