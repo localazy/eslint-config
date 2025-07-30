@@ -8,6 +8,7 @@ import { typescriptDtsFiles } from '@/configs/typescript-dts-files';
 import { typescriptForceJsExtension } from '@/configs/typescript-force-js-extension';
 import { typescriptForcePathAliases } from '@/configs/typescript-force-path-aliases';
 import { typescriptImportResolver } from '@/configs/typescript-import-resolver';
+import { vue2 } from '@/configs/vue2';
 import type { LocalazyConfig } from '@/localazy-config';
 import type { ILocalazyOptions } from '@/model/i-localazy-options';
 
@@ -22,9 +23,10 @@ export function localazy({ userConfigs, settings, features }: ILocalazyOptions =
   const availableFeatures = {
     gitignore: true,
     dts: true,
-    forceJsExtensions: false,
-    forcePathAliases: true,
     prettier: true,
+    forceJsExtensions: false,
+    forcePathAliases: false,
+    vue: false,
 
     // Override default values with user-defined features
     ...features,
@@ -33,6 +35,7 @@ export function localazy({ userConfigs, settings, features }: ILocalazyOptions =
   // TypeScript settings with defaults
   const tsWithDefaults: NonNullable<NonNullable<ILocalazyOptions['settings']>['ts']> = {
     project: settings?.ts?.project ?? 'tsconfig.json',
+    tsconfigRootDir: settings?.ts?.tsconfigRootDir ?? process.cwd(),
   };
 
   // Gitignore settings with defaults
@@ -66,6 +69,10 @@ export function localazy({ userConfigs, settings, features }: ILocalazyOptions =
   }
 
   eslintConfig.push(...typescriptImportResolver({ ts: tsWithDefaults }));
+
+  if (availableFeatures.vue) {
+    eslintConfig.push(...vue2({ ts: tsWithDefaults }));
+  }
 
   if (userConfigs) {
     eslintConfig.push(...userConfigs);

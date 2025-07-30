@@ -13,6 +13,7 @@ export function typescriptImportResolver({
           typescript: {
             alwaysTryTypes: true,
             project: ts.project,
+            noWarnOnMultipleProjects: true,
           },
           node: true,
         },

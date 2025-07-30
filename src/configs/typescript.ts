@@ -14,8 +14,6 @@ export function typescript({
       files: files.all,
       extends: [
         flatConfigs.recommended,
-        // TODO: this seems to slow down the linting process
-        // flatConfigs.typescript,
         typescriptPlugin.configs.strictTypeChecked,
         typescriptPlugin.configs.stylisticTypeChecked,
       ],

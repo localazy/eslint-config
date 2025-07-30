@@ -3,10 +3,6 @@ import type { Linter } from 'eslint';
 /**
  * # Localazy ESLint Options
  *
- * - {@link ILocalazyOptions#userConfigs `userConfigs`}
- * - {@link ILocalazyOptions#features `features`}
- * - {@link ILocalazyOptions#settings `settings`}
- *
  * @example
  * ```ts
  * import { localazy } from '@localazy/eslint-config';
@@ -52,8 +48,6 @@ export interface ILocalazyOptions {
    *   ]
    * });
    * ```
-   *
-   * @see {@link ILocalazyOptions `ILocalazyOptions`}
    */
   userConfigs?: Linter.Config[];
 
@@ -61,14 +55,6 @@ export interface ILocalazyOptions {
    * ## `features`
    *
    * Feature flags to enable or disable specific ESLint plugins and behaviors.
-   *
-   * - {@link ILocalazyOptions#features.gitignore `gitignore`}
-   * - {@link ILocalazyOptions#features.dts `dts`}
-   * - {@link ILocalazyOptions#features.forceJsExtensions `forceJsExtensions`}
-   * - {@link ILocalazyOptions#features.forcePathAliases `forcePathAliases`}
-   * - {@link ILocalazyOptions#features.prettier `prettier`}
-   *
-   * @see {@link ILocalazyOptions `ILocalazyOptions`}
    */
   features?: {
     /**
@@ -77,7 +63,6 @@ export interface ILocalazyOptions {
      * Exclude files listed in `.gitignore` from being linted.
      *
      * @default true
-     * @see {@link ILocalazyOptions#features `features`}
      */
     gitignore?: boolean;
 
@@ -87,9 +72,17 @@ export interface ILocalazyOptions {
      * Enable linting for TypeScript declaration (`.d.ts`) files.
      *
      * @default true
-     * @see {@link ILocalazyOptions#features `features`}
      */
     dts?: boolean;
+
+    /**
+     * ## `features.prettier`
+     *
+     * Enable the Prettier plugin.
+     *
+     * @default true
+     */
+    prettier?: boolean;
 
     /**
      * ## `features.forceJsExtensions`
@@ -103,7 +96,6 @@ export interface ILocalazyOptions {
      * ```
      *
      * @default false
-     * @see {@link ILocalazyOptions#features `features`}
      */
     forceJsExtensions?: boolean;
 
@@ -118,41 +110,30 @@ export interface ILocalazyOptions {
      * import { Foo } from '@/foo'; // ✅
      * ```
      *
-     * @default true
-     * @see {@link ILocalazyOptions#features `features`}
+     * @default false
      */
     forcePathAliases?: boolean;
 
     /**
-     * ## `features.prettier`
+     * ## `features.vue`
      *
-     * Enable the Prettier plugin.
+     * Enable the Vue plugin.
      *
-     * @default true
-     * @see {@link ILocalazyOptions#features `features`}
+     * @default false
      */
-    prettier?: boolean;
+    vue?: boolean;
   };
 
   /**
    * ## `settings`
    *
    * Configuration settings for ESLint plugins.
-   *
-   * - {@link ILocalazyOptions#settings.ts `ts`}
-   * - {@link ILocalazyOptions#settings.gitignore `gitignore`}
-   *
-   * @see {@link ILocalazyOptions `ILocalazyOptions`}
    */
   settings?: {
     /**
      * ## `settings.ts`
      *
      * Settings for TypeScript plugin.
-     *
-     * - {@link ILocalazyOptions#settings.ts.project `project`}
-     *
-     * @see {@link ILocalazyOptions#settings `settings`}
      */
     ts?: {
       /**
@@ -165,19 +146,23 @@ export interface ILocalazyOptions {
        * - Set `rootDir` to the root of the project to ensure all linted files are included in TypeScript project.
        *
        * @default tsconfig.json
-       * @see {@link ILocalazyOptions#settings.ts `settings.ts`}
        */
       project?: string | string[] | null;
+
+      /**
+       * ## `settings.ts.tsconfigRootDir`
+       *
+       * Project root directory
+       *
+       * @default process.cwd()
+       */
+      tsconfigRootDir?: string;
     };
 
     /**
      * ## `settings.gitignore`
      *
      * Settings for the gitignore plugin.
-     *
-     * - {@link ILocalazyOptions#settings.gitignore.paths `paths`}
-     *
-     * @see {@link ILocalazyOptions#settings `settings`}
      */
     gitignore?: {
       /**
@@ -187,7 +172,6 @@ export interface ILocalazyOptions {
        * Specifies which gitignore files should be used to exclude files from linting.
        *
        * @default ['.gitignore']
-       * @see {@link ILocalazyOptions#settings.gitignore `settings.gitignore`}
        */
       paths?: string[];
     };
