@@ -35,10 +35,14 @@ export function localazy({ userConfigs, settings, features, ignores }: ILocalazy
     ...features,
   };
 
+  if (availableFeatures.vue2 === true && availableFeatures.vue3 === true) {
+    throw new Error('You cannot enable both Vue 2 and Vue 3 features at the same time. Please choose one.');
+  }
+
   // TypeScript settings with defaults
   const tsWithDefaults: NonNullable<NonNullable<ILocalazyOptions['settings']>['ts']> = {
     project: settings?.ts?.project ?? 'tsconfig.json',
-    tsconfigRootDir: settings?.ts?.tsconfigRootDir ?? process.cwd(),
+    tsconfigRootDir: settings?.ts?.tsconfigRootDir ?? import.meta.dirname,
   };
 
   // Gitignore settings with defaults

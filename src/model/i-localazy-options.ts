@@ -132,7 +132,7 @@ export interface ILocalazyOptions {
    * Configuration settings for ESLint plugins.
    *
    * - `ts.project`: Path to the TypeScript project configuration file for ESLint. The specified `tsconfig` file(s) must explicitly include all relevant `.ts` and `.js` files using the `include` field and set `rootDir` to the root of the project. Default: `tsconfig.json`
-   * - `ts.tsconfigRootDir`: Project root directory. Default: `process.cwd()`
+   * - `ts.tsconfigRootDir`: Project root directory. Default: `import.meta.dirname`
    * - `gitignore.paths`: Path to `.gitignore` file or files. Specifies which gitignore files should be used to exclude files from linting. Default: `['.gitignore']`
    */
   settings?: {
@@ -146,7 +146,7 @@ export interface ILocalazyOptions {
       project?: string | string[] | null;
 
       /**
-       * @default process.cwd()
+       * @default import.meta.dirname
        */
       tsconfigRootDir?: string;
     };
