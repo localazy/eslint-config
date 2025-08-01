@@ -55,7 +55,7 @@ export default localazy({
       }
     }
   ],
-
+  
   // Specify files to ignore
   ignores: [
     'build/**',
@@ -111,16 +111,16 @@ Feature flags to enable or disable specific ESLint plugins and behaviors:
 | `prettier`          | Enable the Prettier plugin                                                                       | `true`  |
 | `forceJsExtensions` | Require `.js` file extensions in import statements and autofix them                              | `false` |
 | `forcePathAliases`  | Force the use of configured TypeScript path aliases instead of relative imports and autofix them | `false` |
-| `vue`               | Enable the Vue plugin                                                                            | `false` |
+| `vue2`              | Enable Vue 2 support                                                                             | `false` |
+| `vue3`              | Enable Vue 3 support                                                                             | `false` |
 
 Example:
 
 ```text
 {
   features: {
-    vue: true,
+    vue2: true,
     forceJsExtensions: true,
-    prettier: false // Disable Prettier integration
   }
 }
 ```
@@ -136,10 +136,10 @@ Configuration settings for ESLint plugins:
   settings: {
     ts: {
       // Path to the TypeScript project configuration file
-      project: 'tsconfig.json', // default
+      project: 'tsconfig.json',
 
       // Project root directory
-      tsconfigRootDir: process.cwd() // default
+      tsconfigRootDir: import.meta.dirname,
     }
   }
 }
@@ -164,7 +164,7 @@ This ESLint configuration includes:
 
 - **JavaScript**: Base JavaScript rules and best practices
 - **TypeScript**: TypeScript-specific rules and type checking
-- **Vue.js** (optional): Vue.js specific rules and best practices
+- **Vue.js** (optional): Support for both Vue 2 and Vue 3 with specific rules and best practices for each version
 - **Prettier** (enabled by default): Integration with Prettier for consistent code formatting
 - **Import/Export**: Rules for import and export statements
 - **Path Aliases**: Support for TypeScript path aliases
@@ -179,12 +179,6 @@ pnpm install
 
 # Build the package
 pnpm build
-
-# Run linting
-pnpm lint
-
-# Run type checking
-pnpm typecheck
 
 # Check everything
 pnpm check

@@ -58,7 +58,7 @@ export interface ILocalazyOptions {
    * ## `ignores`
    *
    * List of glob patterns for files to be ignored by ESLint.
-   * These patterns will be added to the ignore list in addition to files from .useGitIgnore.
+   * These patterns will be added to the ignore list in addition to files from .gitignore.
    *
    * @example
    * ```ts
@@ -81,12 +81,13 @@ export interface ILocalazyOptions {
    *
    * Feature flags to enable or disable specific ESLint plugins and behaviors.
    *
-   * - `useGitIgnore`: Exclude files listed in `.useGitIgnore` from being linted. Default: `true`
+   * - `gitignore`: Exclude files listed in `.gitignore` from being linted. Default: `true`
    * - `dts`: Enable linting for TypeScript declaration (`.d.ts`) files. Default: `true`
    * - `prettier`: Enable the Prettier plugin. Default: `true`
    * - `forceJsExtensions`: Require `.js` file extensions in import statements and autofix them. Default: `false`
    * - `forcePathAliases`: Force the use of configured TypeScript path aliases instead of relative imports and autofix them. Default: `false`
-   * - `vue`: Enable the Vue plugin. Default: `false`
+   * - `vue2`: Enable the Vue 2 plugin. Default: `false`
+   * - `vue3`: Enable the Vue 3 plugin. Default: `false`
    */
   features?: {
     /**
@@ -117,7 +118,12 @@ export interface ILocalazyOptions {
     /**
      * @default false
      */
-    vue?: boolean;
+    vue2?: boolean;
+
+    /**
+     * @default false
+     */
+    vue3?: boolean;
   };
 
   /**
@@ -127,7 +133,7 @@ export interface ILocalazyOptions {
    *
    * - `ts.project`: Path to the TypeScript project configuration file for ESLint. The specified `tsconfig` file(s) must explicitly include all relevant `.ts` and `.js` files using the `include` field and set `rootDir` to the root of the project. Default: `tsconfig.json`
    * - `ts.tsconfigRootDir`: Project root directory. Default: `process.cwd()`
-   * - `useGitIgnore.paths`: Path to `.useGitIgnore` file or files. Specifies which useGitIgnore files should be used to exclude files from linting. Default: `['.useGitIgnore']`
+   * - `gitignore.paths`: Path to `.gitignore` file or files. Specifies which gitignore files should be used to exclude files from linting. Default: `['.gitignore']`
    */
   settings?: {
     /**
@@ -146,11 +152,11 @@ export interface ILocalazyOptions {
     };
 
     /**
-     * Settings for the useGitIgnore plugin.
+     * Settings for the gitignore plugin.
      */
     gitignore?: {
       /**
-       * @default ['.useGitIgnore']
+       * @default ['.gitignore']
        */
       paths?: string[];
     };

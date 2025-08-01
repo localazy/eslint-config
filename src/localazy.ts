@@ -10,6 +10,7 @@ import { useTypescriptForceJsExtension } from '@/configs/use-typescript-force-js
 import { useTypescriptForcePathAliases } from '@/configs/use-typescript-force-path-aliases';
 import { useTypescriptImportResolver } from '@/configs/use-typescript-import-resolver';
 import { useVue2 } from '@/configs/use-vue2';
+import { useVue3 } from '@/configs/use-vue3';
 import type { LocalazyConfig } from '@/localazy-config';
 import type { ILocalazyOptions } from '@/model/i-localazy-options';
 
@@ -21,13 +22,14 @@ import type { ILocalazyOptions } from '@/model/i-localazy-options';
  */
 export function localazy({ userConfigs, settings, features, ignores }: ILocalazyOptions = {}): LocalazyConfig {
   // Define default values for features
-  const availableFeatures = {
+  const availableFeatures: ILocalazyOptions['features'] = {
     gitignore: true,
     dts: true,
     prettier: true,
     forceJsExtensions: false,
     forcePathAliases: false,
-    vue: false,
+    vue2: false,
+    vue3: false,
 
     // Override default values with user-defined features
     ...features,
@@ -41,7 +43,7 @@ export function localazy({ userConfigs, settings, features, ignores }: ILocalazy
 
   // Gitignore settings with defaults
   const gitignoreWithDefaults: NonNullable<NonNullable<ILocalazyOptions['settings']>['gitignore']> = {
-    paths: settings?.gitignore?.paths ?? ['.useGitIgnore'],
+    paths: settings?.gitignore?.paths ?? ['.gitignore'],
   };
 
   const ignoresWithDefaults = ignores ?? [];
@@ -75,8 +77,12 @@ export function localazy({ userConfigs, settings, features, ignores }: ILocalazy
 
   eslintConfig.push(...useTypescriptImportResolver({ ts: tsWithDefaults }));
 
-  if (availableFeatures.vue) {
+  if (availableFeatures.vue2) {
     eslintConfig.push(...useVue2());
+  }
+
+  if (availableFeatures.vue3) {
+    eslintConfig.push(...useVue3());
   }
 
   if (userConfigs) {
