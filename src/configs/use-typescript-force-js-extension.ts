@@ -3,7 +3,7 @@ import type { LocalazyConfig } from '@/localazy-config';
 // @ts-expect-error package does not have types
 import esmImport from 'eslint-plugin-esm-import';
 
-export function typescriptForceJsExtension(): LocalazyConfig {
+export function useTypescriptForceJsExtension(): LocalazyConfig {
   return [
     {
       files: files.all,

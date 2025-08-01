@@ -1,7 +1,7 @@
 import type { LocalazyConfig } from '@/localazy-config';
 import prettierPlugin from 'eslint-config-prettier';
 
-export function prettier(): LocalazyConfig {
+export function usePrettier(): LocalazyConfig {
   return [
     {
       ...prettierPlugin,

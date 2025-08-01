@@ -1,7 +1,7 @@
 import { files } from '@/configs/shared/files';
 import type { LocalazyConfig } from '@/localazy-config';
 
-export function typescriptDtsFiles(): LocalazyConfig {
+export function useTypescriptDtsFiles(): LocalazyConfig {
   return [
     {
       files: files.dts,

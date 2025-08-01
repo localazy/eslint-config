@@ -1,14 +1,15 @@
-import { common } from '@/configs/common';
-import { globals } from '@/configs/globals';
-import { gitignore } from '@/configs/ignore';
-import { javascript } from '@/configs/javascript';
-import { prettier } from '@/configs/prettier';
-import { typescript } from '@/configs/typescript';
-import { typescriptDtsFiles } from '@/configs/typescript-dts-files';
-import { typescriptForceJsExtension } from '@/configs/typescript-force-js-extension';
-import { typescriptForcePathAliases } from '@/configs/typescript-force-path-aliases';
-import { typescriptImportResolver } from '@/configs/typescript-import-resolver';
-import { vue2 } from '@/configs/vue2';
+import { useCommon } from '@/configs/use-common';
+import { useGitIgnore } from '@/configs/use-git-ignore';
+import { useGlobals } from '@/configs/use-globals';
+import { useIgnores } from '@/configs/use-ignores';
+import { useJavascript } from '@/configs/use-javascript';
+import { usePrettier } from '@/configs/use-prettier';
+import { useTypescript } from '@/configs/use-typescript';
+import { useTypescriptDtsFiles } from '@/configs/use-typescript-dts-files';
+import { useTypescriptForceJsExtension } from '@/configs/use-typescript-force-js-extension';
+import { useTypescriptForcePathAliases } from '@/configs/use-typescript-force-path-aliases';
+import { useTypescriptImportResolver } from '@/configs/use-typescript-import-resolver';
+import { useVue2 } from '@/configs/use-vue2';
 import type { LocalazyConfig } from '@/localazy-config';
 import type { ILocalazyOptions } from '@/model/i-localazy-options';
 
@@ -18,7 +19,7 @@ import type { ILocalazyOptions } from '@/model/i-localazy-options';
  * @param {ILocalazyOptions} [options] - The options for configuring ESLint plugins.
  * @returns {LocalazyConfig} Assembled ESLint configuration based on the provided options.
  */
-export function localazy({ userConfigs, settings, features }: ILocalazyOptions = {}): LocalazyConfig {
+export function localazy({ userConfigs, settings, features, ignores }: ILocalazyOptions = {}): LocalazyConfig {
   // Define default values for features
   const availableFeatures = {
     gitignore: true,
@@ -40,38 +41,42 @@ export function localazy({ userConfigs, settings, features }: ILocalazyOptions =
 
   // Gitignore settings with defaults
   const gitignoreWithDefaults: NonNullable<NonNullable<ILocalazyOptions['settings']>['gitignore']> = {
-    paths: settings?.gitignore?.paths ?? ['.gitignore'],
+    paths: settings?.gitignore?.paths ?? ['.useGitIgnore'],
   };
+
+  const ignoresWithDefaults = ignores ?? [];
 
   // Build the ESLint configuration array
 
   const eslintConfig = [];
 
+  eslintConfig.push(...useIgnores({ ignores: ignoresWithDefaults }));
+
   if (availableFeatures.gitignore) {
-    eslintConfig.push(...gitignore({ gitignore: gitignoreWithDefaults }));
+    eslintConfig.push(...useGitIgnore({ gitignore: gitignoreWithDefaults }));
   }
 
-  eslintConfig.push(...globals());
-  eslintConfig.push(...common());
-  eslintConfig.push(...javascript());
-  eslintConfig.push(...typescript({ ts: tsWithDefaults }));
+  eslintConfig.push(...useGlobals());
+  eslintConfig.push(...useCommon());
+  eslintConfig.push(...useJavascript());
+  eslintConfig.push(...useTypescript({ ts: tsWithDefaults }));
 
   if (availableFeatures.dts) {
-    eslintConfig.push(...typescriptDtsFiles());
+    eslintConfig.push(...useTypescriptDtsFiles());
   }
 
   if (availableFeatures.forceJsExtensions) {
-    eslintConfig.push(...typescriptForceJsExtension());
+    eslintConfig.push(...useTypescriptForceJsExtension());
   }
 
   if (availableFeatures.forcePathAliases) {
-    eslintConfig.push(...typescriptForcePathAliases());
+    eslintConfig.push(...useTypescriptForcePathAliases());
   }
 
-  eslintConfig.push(...typescriptImportResolver({ ts: tsWithDefaults }));
+  eslintConfig.push(...useTypescriptImportResolver({ ts: tsWithDefaults }));
 
   if (availableFeatures.vue) {
-    eslintConfig.push(...vue2({ ts: tsWithDefaults }));
+    eslintConfig.push(...useVue2());
   }
 
   if (userConfigs) {
@@ -79,7 +84,7 @@ export function localazy({ userConfigs, settings, features }: ILocalazyOptions =
   }
 
   if (availableFeatures.prettier) {
-    eslintConfig.push(...prettier());
+    eslintConfig.push(...usePrettier());
   }
 
   return eslintConfig;

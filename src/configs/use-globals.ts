@@ -2,7 +2,7 @@ import { files } from '@/configs/shared/files';
 import type { LocalazyConfig } from '@/localazy-config';
 import globalsDefinition from 'globals';
 
-export function globals(): LocalazyConfig {
+export function useGlobals(): LocalazyConfig {
   return [
     {
       // 1. Assume js/ts files are type module.

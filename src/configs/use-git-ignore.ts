@@ -2,7 +2,7 @@ import type { LocalazyConfig } from '@/localazy-config';
 import type { ILocalazyOptions } from '@/model/i-localazy-options';
 import gitignorePlugin from 'eslint-config-flat-gitignore';
 
-export function gitignore({
+export function useGitIgnore({
   gitignore,
 }: {
   gitignore: NonNullable<NonNullable<ILocalazyOptions['settings']>['gitignore']>;

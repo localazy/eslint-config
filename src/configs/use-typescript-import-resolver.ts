@@ -1,7 +1,7 @@
 import type { LocalazyConfig } from '@/localazy-config';
 import type { ILocalazyOptions } from '@/model/i-localazy-options';
 
-export function typescriptImportResolver({
+export function useTypescriptImportResolver({
   ts,
 }: {
   ts: NonNullable<NonNullable<ILocalazyOptions['settings']>['ts']>;

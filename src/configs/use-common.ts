@@ -1,6 +1,6 @@
 import type { LocalazyConfig } from '@/localazy-config';
 
-export function common(): LocalazyConfig {
+export function useCommon(): LocalazyConfig {
   return [
     {
       rules: {

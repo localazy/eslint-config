@@ -1,12 +1,12 @@
 import type { LocalazyConfig } from '@/localazy-config';
-import type { ILocalazyOptions } from '@/model/i-localazy-options';
 import vue from 'eslint-plugin-vue';
+import globals from 'globals';
 import typescript from 'typescript-eslint';
 import vueParser from 'vue-eslint-parser';
 
-export function vue2({ ts }: { ts: NonNullable<NonNullable<ILocalazyOptions['settings']>['ts']> }): LocalazyConfig {
+export function useVue2(): LocalazyConfig {
   return [
-    ...typescript.configs.strictTypeChecked,
+    ...typescript.configs.strict,
     ...vue.configs['flat/vue2-recommended'],
     {
       files: ['**/*.vue'],
@@ -14,19 +14,15 @@ export function vue2({ ts }: { ts: NonNullable<NonNullable<ILocalazyOptions['set
       languageOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        globals: globals.browser,
         parser: vueParser,
         parserOptions: {
           parser: typescript.parser,
-          project: ts.project,
           extraFileExtensions: ['.vue'],
-          tsconfigRootDir: ts.tsconfigRootDir,
         },
       },
 
       rules: {
-        // ...vueTypescript.rules,
-        // ...vuePrettier.rules,
-        '@typescript-eslint/await-thenable': 'off',
         'vue/multi-word-component-names': 'off',
         'vue/attribute-hyphenation': 'off',
         'vue/no-v-html': 'off',

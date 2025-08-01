@@ -12,8 +12,11 @@ import type { Linter } from 'eslint';
  *     {
  *       rules: {
  *         'annoying-rule': 'off'
- *       }
+ *       },
  *     }
+ *   ],
+ *   ignores: [
+ *     'tests/fixtures/**',
  *   ],
  *   features: {
  *     forceJsExtensions: true
@@ -52,73 +55,66 @@ export interface ILocalazyOptions {
   userConfigs?: Linter.Config[];
 
   /**
+   * ## `ignores`
+   *
+   * List of glob patterns for files to be ignored by ESLint.
+   * These patterns will be added to the ignore list in addition to files from .useGitIgnore.
+   *
+   * @example
+   * ```ts
+   * import { localazy } from '@localazy/eslint-config';
+   *
+   * export default localazy({
+   *   ignores: [
+   *     'build/**',
+   *     'dist/**',
+   *     'coverage/**',
+   *     'node_modules/**'
+   *   ]
+   * });
+   * ```
+   */
+  ignores?: string[];
+
+  /**
    * ## `features`
    *
    * Feature flags to enable or disable specific ESLint plugins and behaviors.
+   *
+   * - `useGitIgnore`: Exclude files listed in `.useGitIgnore` from being linted. Default: `true`
+   * - `dts`: Enable linting for TypeScript declaration (`.d.ts`) files. Default: `true`
+   * - `prettier`: Enable the Prettier plugin. Default: `true`
+   * - `forceJsExtensions`: Require `.js` file extensions in import statements and autofix them. Default: `false`
+   * - `forcePathAliases`: Force the use of configured TypeScript path aliases instead of relative imports and autofix them. Default: `false`
+   * - `vue`: Enable the Vue plugin. Default: `false`
    */
   features?: {
     /**
-     * ## `features.gitignore`
-     *
-     * Exclude files listed in `.gitignore` from being linted.
-     *
      * @default true
      */
     gitignore?: boolean;
 
     /**
-     * ## `features.dts`
-     *
-     * Enable linting for TypeScript declaration (`.d.ts`) files.
-     *
      * @default true
      */
     dts?: boolean;
 
     /**
-     * ## `features.prettier`
-     *
-     * Enable the Prettier plugin.
-     *
      * @default true
      */
     prettier?: boolean;
 
     /**
-     * ## `features.forceJsExtensions`
-     *
-     * Require `.js` file extensions in import statements and autofix them.
-     *
-     * @example
-     * ```ts
-     * import { Foo } from '@/foo'; // ❌
-     * import { Foo } from '@/foo.js'; // ✅
-     * ```
-     *
      * @default false
      */
     forceJsExtensions?: boolean;
 
     /**
-     * ## `features.forcePathAliases`
-     *
-     * Force the use of configured TypeScript path aliases instead of relative imports and autofix them.
-     *
-     * @example
-     * ```ts
-     * import { Foo } from './foo'; // ❌
-     * import { Foo } from '@/foo'; // ✅
-     * ```
-     *
      * @default false
      */
     forcePathAliases?: boolean;
 
     /**
-     * ## `features.vue`
-     *
-     * Enable the Vue plugin.
-     *
      * @default false
      */
     vue?: boolean;
@@ -128,50 +124,33 @@ export interface ILocalazyOptions {
    * ## `settings`
    *
    * Configuration settings for ESLint plugins.
+   *
+   * - `ts.project`: Path to the TypeScript project configuration file for ESLint. The specified `tsconfig` file(s) must explicitly include all relevant `.ts` and `.js` files using the `include` field and set `rootDir` to the root of the project. Default: `tsconfig.json`
+   * - `ts.tsconfigRootDir`: Project root directory. Default: `process.cwd()`
+   * - `useGitIgnore.paths`: Path to `.useGitIgnore` file or files. Specifies which useGitIgnore files should be used to exclude files from linting. Default: `['.useGitIgnore']`
    */
   settings?: {
     /**
-     * ## `settings.ts`
-     *
      * Settings for TypeScript plugin.
      */
     ts?: {
       /**
-       * ## `settings.ts.project`
-       *
-       * Path to the TypeScript project configuration file for ESLint.
-       *
-       * The specified `tsconfig` file(s) must:
-       * - Explicitly include all relevant `.ts` and `.js` files using the `include` field.
-       * - Set `rootDir` to the root of the project to ensure all linted files are included in TypeScript project.
-       *
        * @default tsconfig.json
        */
       project?: string | string[] | null;
 
       /**
-       * ## `settings.ts.tsconfigRootDir`
-       *
-       * Project root directory
-       *
        * @default process.cwd()
        */
       tsconfigRootDir?: string;
     };
 
     /**
-     * ## `settings.gitignore`
-     *
-     * Settings for the gitignore plugin.
+     * Settings for the useGitIgnore plugin.
      */
     gitignore?: {
       /**
-       * ## `settings.gitignore.paths`
-       *
-       * Path to `.gitignore` file or files.
-       * Specifies which gitignore files should be used to exclude files from linting.
-       *
-       * @default ['.gitignore']
+       * @default ['.useGitIgnore']
        */
       paths?: string[];
     };

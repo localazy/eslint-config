@@ -4,7 +4,7 @@ import type { ILocalazyOptions } from '@/model/i-localazy-options';
 import { flatConfigs } from 'eslint-plugin-import';
 import { default as typescriptPlugin } from 'typescript-eslint';
 
-export function typescript({
+export function useTypescript({
   ts,
 }: {
   ts: NonNullable<NonNullable<ILocalazyOptions['settings']>['ts']>;

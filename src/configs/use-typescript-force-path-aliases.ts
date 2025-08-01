@@ -2,7 +2,7 @@ import { files } from '@/configs/shared/files';
 import type { LocalazyConfig } from '@/localazy-config';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 
-export function typescriptForcePathAliases(): LocalazyConfig {
+export function useTypescriptForcePathAliases(): LocalazyConfig {
   return [
     {
       files: files.ts,
