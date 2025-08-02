@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "dev": {
+      "outputs": ["dist/**"],
+      "persistent": true,
+      "interruptible": true,
+      "cache": false
+    },
+    "build": {
+      "outputs": ["dist/**"],
+      "cache": false
+    },
+    "check": {
+      "cache": false
+    },
+    "check:fix": {
+      "cache": false
+    },
+    "typecheck": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    },
+    "test:watch": {
+      "cache": false
+    },
+    "test:coverage": {
+      "cache": false
+    }
+  }
+}

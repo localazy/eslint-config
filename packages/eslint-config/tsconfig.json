@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@localazy/tsconfig/tsconfig.library.json",
+  "compilerOptions": {
+    "types": ["@types/node"],
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/tests/*": ["./tests/*"]
+    }
+  },
+  "include": [
+    "src",
+    "tests",
+    "*.d.ts",
+    "*.d.cts",
+    "*.d.mts",
+    "*.js",
+    "*.cjs",
+    "*.mjs",
+    "*.ts",
+    "*.tsx",
+    "*.cts",
+    "*.mts",
+    "package.json"
+  ]
+}

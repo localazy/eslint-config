@@ -59,4 +59,4 @@ async function badPromiseHandling(): Promise<string> {
 }
 
 // Export to avoid unused warnings
-export { implicitAny, useBadInterface, nonNullAssertion, badPromiseHandling, DeprecatedClass };
+export { DeprecatedClass, badPromiseHandling, implicitAny, nonNullAssertion, useBadInterface };

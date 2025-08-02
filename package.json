@@ -1,17 +1,7 @@
 {
-  "name": "@localazy/eslint-config",
-  "version": "1.0.0",
-  "description": "Localazy ESLint configuration",
-  "keywords": [
-    "eslint",
-    "eslint-config",
-    "localazy"
-  ],
-  "homepage": "https://github.com/localazy/eslint-config#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/localazy/eslint-config.git"
-  },
+  "name": "@localazy/config-monorepo",
+  "private": true,
+  "description": "Localazy configuration monorepo",
   "license": "MIT",
   "author": {
     "name": "Localazy",
@@ -19,71 +9,33 @@
     "url": "https://localazy.com"
   },
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/main.d.ts",
-      "import": "./dist/main.js",
-      "require": "./dist/main.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./dist/main.cjs",
-  "module": "./dist/main.js",
-  "types": "./dist/main.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "vite build",
-    "check": "pnpm run lint && pnpm run prettier && pnpm run typecheck && pnpm run build",
-    "check:fix": "pnpm run lint:fix && pnpm run prettier:fix",
-    "dev": "vite build --watch",
-    "lint": "eslint --cache --cache-location .cache/eslint .",
+    "build": "turbo build",
+    "check": "pnpm run prettier && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "check:fix": "pnpm run prettier:fix && pnpm run lint:fix",
+    "dev": "turbo dev",
+    "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "lint:inspect": "eslint --inspect-config",
-    "prepare": "husky && pnpm run build",
-    "prepublishOnly": "pnpm run build",
-    "prettier": "prettier --check --cache --cache-location .cache/prettier .",
-    "prettier:fix": "prettier --write .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit --project tsconfig.json"
+    "prepare": "husky",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --fix .",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "test:watch": "turbo test:watch",
+    "typecheck": "turbo typecheck"
   },
   "prettier": "@localazy/prettier-config",
-  "dependencies": {
-    "@eslint/js": "^9.32.0",
-    "@typescript-eslint/utils": "^8.38.0",
-    "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-esm-import": "^1.0.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-import-x": "^4.16.1",
-    "eslint-plugin-no-relative-import-paths": "^1.6.1",
-    "eslint-plugin-prettier": "^5.5.3",
-    "eslint-plugin-vue": "^9.33.0",
-    "globals": "^16.3.0",
-    "typescript-eslint": "^8.38.0",
-    "vue-eslint-parser": "^9.4.3"
-  },
   "devDependencies": {
-    "@localazy/eslint-config": "file:",
-    "@localazy/prettier-config": "^1.0.0-beta.4",
-    "@localazy/tsconfig": "^1.0.0-beta.5",
+    "@localazy/eslint-config": "workspace:*",
+    "@localazy/prettier-config": "file:../prettier-config",
+    "@localazy/tsconfig": "file:../tsconfig",
     "@types/node": "^22.17.0",
-    "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.32.0",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.6",
-    "vite-plugin-dts": "^4.5.4",
-    "vite-plugin-externalize-deps": "^0.9.0",
-    "vitest": "^3.2.4"
-  },
-  "peerDependencies": {
-    "eslint": ">=9.0.0"
+    "turbo": "^2.5.5",
+    "typescript": "^5.8.3"
   },
   "packageManager": "pnpm@10.3.0",
   "pnpm": {

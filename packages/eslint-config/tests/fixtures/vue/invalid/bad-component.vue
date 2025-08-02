@@ -23,6 +23,7 @@
 </template>
 
 <script>
+// @ts-nocheck
 // Non-TypeScript script (missing lang="ts")
 // Inconsistent component naming (not PascalCase)
 export default {
@@ -48,15 +49,15 @@ export default {
     // Unused method
     unusedMethod() {
       console.log('This method is never used');
-    }
+    },
   },
 
   // Lifecycle hook with side effect
   mounted() {
     // Direct DOM manipulation (should use refs)
     document.querySelector('.empty-block').textContent = 'Modified';
-  }
-}
+  },
+};
 </script>
 
 <style>

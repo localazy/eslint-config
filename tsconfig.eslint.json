@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@localazy/tsconfig/tsconfig.package.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "types": ["@types/node"]
+  },
+  "include": [
+    "*.d.ts",
+    "*.d.cts",
+    "*.d.mts",
+    "*.js",
+    "*.cjs",
+    "*.mjs",
+    "*.ts",
+    "*.tsx",
+    "*.cts",
+    "*.mts",
+    "package.json"
+  ]
+}

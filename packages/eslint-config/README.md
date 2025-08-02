@@ -55,7 +55,7 @@ export default localazy({
       }
     }
   ],
-  
+
   // Specify files to ignore
   ignores: [
     'build/**',
@@ -192,4 +192,4 @@ For more details on ESLint configuration, visit the [ESLint documentation](https
 
 This project is licensed under the MIT License.
 
-See [LICENSE](LICENSE) for details.
+See [LICENSE](../../LICENSE) for details.

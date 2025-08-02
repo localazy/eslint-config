@@ -1,7 +1,7 @@
+import { localazy } from '@/localazy';
 import { ESLint } from 'eslint';
 import { resolve } from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { localazy } from '../../src/main';
 
 describe('ESLint Configuration', () => {
   let jsEslint: ESLint;
@@ -9,7 +9,6 @@ describe('ESLint Configuration', () => {
   let vueEslint: ESLint;
 
   beforeAll(() => {
-    // Create ESLint instances with different configurations
     jsEslint = new ESLint({
       overrideConfig: localazy() as NonNullable<ConstructorParameters<typeof ESLint>['0']>['overrideConfig'],
       overrideConfigFile: true,

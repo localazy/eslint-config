@@ -25,6 +25,6 @@ export default defineConfig({
     // Externalize everything
     externalizeDeps(),
     // Rollup types into a single file
-    dts({ rollupTypes: true, tsconfigPath: 'tsconfig.vite-dts.json' }),
+    dts({ rollupTypes: true }),
   ],
 });

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // This file contains intentional ESLint issues
 
 // Unused variable
